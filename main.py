@@ -18,7 +18,8 @@ def time_symetrize(clip):
 def rename(fl):
 
 	clp= VideoFileClip(fl).resize(0.85).fx(time_symetrize)
-	clp.write_gif("/media/vamshi/05FF22A33F497072/"+fl.replace(" ","_").split(".")[0]+".gif")
+	drnm = os.path.basename(fl)
+	clp.write_gif(drnm+fl.replace(" ","_").split(".")[0]+".gif")
 	del clp
 	os.remove(fl)
 
@@ -35,6 +36,6 @@ for vid in onlyFiles:
 
 print("No.of Files:",len(smallVids))
 
-executor = ProcessPoolExecutor(5)
+executor = ProcessPoolExecutor(2)
 future_to_url = {executor.submit(rename,vid): vid for vid in smallVids}
 
